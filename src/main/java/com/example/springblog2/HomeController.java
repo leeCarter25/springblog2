@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class HomeController {
 
-    @GetMapping("/testone")
+    @GetMapping("/")
     @ResponseBody
-    public String testone() {
+    public String landing() {
         return "This is the landing page!";
     }
 }

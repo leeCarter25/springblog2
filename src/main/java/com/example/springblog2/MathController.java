@@ -1,17 +1,35 @@
 package com.example.springblog2;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MathController {
 
-    @RequestMapping(method = RequestMethod.GET, path = "/add/3/and/4")
+    @RequestMapping("/add/{num1}/and/{num2}")
     @ResponseBody
-    public int arithmetic() {
-        return 7;
+    public int arithmetic(@PathVariable int num1, @PathVariable int num2) {
+        return num1 + num2;
     }
+
+    @GetMapping("/subtract/{num1}/from/{num2}")
+    @ResponseBody
+    public int subtract(@PathVariable int num1, @PathVariable int num2) {
+        return num1 - num2;
+    }
+
+    @GetMapping("/multiply/{num1}/and/{num2}")
+    @ResponseBody
+    public int multiply(@PathVariable int num1, @PathVariable int num2) {
+        return num1 * num2;
+    }
+
+    @GetMapping("/divide/{num1}/by/{num2}")
+    @ResponseBody
+    public int quotient(@PathVariable int num1, @PathVariable int num2) {
+        return num1 / num2;
+    }
+
+
 
 }

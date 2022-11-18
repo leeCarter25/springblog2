@@ -1,10 +1,8 @@
 package com.example.springblog2;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 @Controller
 public class PostController {
 
@@ -16,8 +14,8 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     @ResponseBody
-    public String postsId() {
-        return "view individual post";
+    public String singlePost(@PathVariable long id) {
+        return "view individual post " + id;
     }
 
     @GetMapping("/posts/create")
@@ -26,10 +24,10 @@ public class PostController {
         return "view the form for creating a post";
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/posts/create")
+    @PostMapping( "/posts/create")
     @ResponseBody
-    public String postCreate() {
-        return "create a new post";
+    public String submitPost() {
+        return "created a new post";
     }
 
 
