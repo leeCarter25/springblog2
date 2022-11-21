@@ -11,6 +11,8 @@
 <div class="container">
     <div class="row">
         <div class="col" th:each="post : ${allPosts}">
+            <h1 th:text="${'post by: ' + post.user.username}"></h1>
+            <h2 th:text="${'contact me at: ' + post.user.email}"></h2>
             <h1 th:text="${post.title}"></h1>
             <p th:text="${post.body}"></p>
         </div>

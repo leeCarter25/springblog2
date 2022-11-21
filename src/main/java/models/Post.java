@@ -1,14 +1,27 @@
 package models;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.io.Serializable;
 
+
+import models.User;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "posts")
 public class Post {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false, length = 150)
     private String title;
+
+    @Column(nullable = false, length = 300)
     private String body;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Post(){};
 
@@ -47,21 +60,11 @@ public class Post {
         this.body = body;
     }
 
-    @Entity
-    @Table(name = "employee")
-    public class Employee implements Serializable {
+    public User getUser() {
+        return user;
+    }
 
-        @Column(name = "employee_name")
-        private String employeeName;
-        @Id
-        private Long id;
-
-        public void setId(Long id) {
-            this.id = id;
-        }
-
-        public Long getId() {
-            return id;
-        }
+    public void setUser(User user) {
+        this.user = user;
     }
 }

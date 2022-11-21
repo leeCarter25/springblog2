@@ -1,10 +1,12 @@
 package com.example.springblog2;
 
 import models.Post;
+import models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import repositories.PostRepository;
+import repositories.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +16,14 @@ public class PostController {
 
     private PostRepository postDao;
 
-    public PostController(PostRepository postDao) {
+    private UserRepository userDao;
+
+    public PostController(){};
+    public PostController(PostRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
+        this.userDao = userDao;
     }
+
 
     @GetMapping("/posts")
     public String postsIndex(Model model) {
@@ -40,7 +47,8 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String singlePost(@PathVariable long id, Model model) {
-        Post singlePost = new Post(id, "First Post!", "This is the first time I've ever used Spring!");
+//        Post singlePost = new Post(id, "First Post!", "This is the first time I've ever used Spring!");
+        Post singlePost = postDao.getById(id);
         model.addAttribute("post", singlePost);
         return "posts/show";
     }
@@ -55,6 +63,8 @@ public class PostController {
     {   Post post = new Post();
         post.setTitle(title);
         post.setBody(description);
+        User user = userDao.getById(1L);
+        post.setUser(user);
         postDao.save(post);
         return "redirect:/posts";
     }
