@@ -1,16 +1,24 @@
 package com.example.springblog2;
 
+import models.Ad;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.*;
+import repositories.AdRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class HomeController {
+    // Establish adsDao instance property
+    private final AdRepository adsDao;
+    // Anytime this controller is used, inject the adsDao so we can use it!
+    public HomeController(AdRepository adsDao) {
+        this.adsDao = adsDao;
+    }
 
     @GetMapping("/")
     @ResponseBody
@@ -18,27 +26,36 @@ public class HomeController {
         return "This is the landing page!";
     }
 
-        // To show anchor tag options page
-        @GetMapping("/roll-dice")
-        public String showChoices() {
-            return "roll-dice";
-        }
+    @GetMapping("/dogpark")
+    public String dogpark(Model model) {
+        List<String> dogs = new ArrayList<>();
+        dogs.add("Bubbles");
+        dogs.add("Spot");
+        dogs.add("Ezekial");
 
-        // To show results of guess
-        @GetMapping("/roll-dice/{n}")
-        public String showResults(@PathVariable int n, Model model) {
-            // Establish the random number variable
-            int randomNum = (int) Math.floor(Math.random() * ((7 - 1) + 1));
+        model.addAttribute("dogs", dogs);
+        return "dogPark";
+    }
 
-            // check if the path variable is equal to the random number
+    @GetMapping("/hello/{name}")
+    public String sayHello(@PathVariable String name, Model model) {
+        model.addAttribute("name", name);
+        return "hello";
+    }
 
-            boolean result = n == randomNum;
+    @GetMapping("/ads")
+    public String allAds(Model model) {
+        List<Ad> ads = adsDao.findAll();
+        // Other methods to note:
+        // .save() - insert new record, or update a record.
+        // .delete() - delete a record
+        // .findById() - find record by id
 
-            model.addAttribute("result", result);
-            model.addAttribute("randomNum", randomNum);
 
-            return "roll-dice";
-        }
+        model.addAttribute("ads", ads);
 
+        return "ads";
 
     }
+
+}
