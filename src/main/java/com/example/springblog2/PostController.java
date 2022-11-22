@@ -18,7 +18,11 @@ public class PostController {
 
     private UserRepository userDao;
 
-    public PostController(){};
+    public PostController() {
+    }
+
+    ;
+
     public PostController(PostRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
         this.userDao = userDao;
@@ -59,8 +63,8 @@ public class PostController {
     }
 
     @PostMapping("/posts/create")
-    public String submitPost(@RequestParam(name = "title")String title, @RequestParam(name = "description")String description)
-    {   Post post = new Post();
+    public String submitPost(@RequestParam(name = "title") String title, @RequestParam(name = "description") String description) {
+        Post post = new Post();
         post.setTitle(title);
         post.setBody(description);
         User user = userDao.getById(1L);
@@ -78,21 +82,19 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    @GetMapping("/posts/{id}/edit") {
-        public String editPost(@PathVariable long id, Model model) {
-            model.addAttribute("post", postDao.getReferenceById(id));
-            return "posts/editPost";
-        }
-
-        @PostMapping("/posts/edit")
-        public String editPost(@ModelAttribute Post post){
-            System.out.println(post.getId());
-            User user = userDao.getById(1L);
-            post.setUser(user);
-//            post.setId(id);
-            postDao.save(post);
-            return "redirect:/posts";
-        }
+    @GetMapping("/posts/{id}/edit")
+    public String editPost(@PathVariable long id, Model model) {
+        model.addAttribute("post", postDao.getReferenceById(id));
+        return "posts/editPost";
     }
 
+    @PostMapping("/posts/edit")
+    public String editPost(@ModelAttribute Post post) {
+        System.out.println(post.getId());
+        User user = userDao.getById(1L);
+        post.setUser(user);
+//            post.setId(id);
+        postDao.save(post);
+        return "redirect:/posts";
+    }
 }
