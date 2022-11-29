@@ -34,6 +34,9 @@ public class User {
         this.post = post;
     }
 
+    public User(User user) {
+    }
+
     public long getId() {
         return id;
     }
@@ -66,4 +69,10 @@ public class User {
         this.password = passWord;
     }
 
+    public CharSequence getPassword() {
+        return null;
+    }
+
+    public void setPassword(String hash) {
+    }
 }

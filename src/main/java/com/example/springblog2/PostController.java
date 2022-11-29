@@ -1,14 +1,17 @@
 package com.example.springblog2;
 
+import services.EmailService;
 import models.Post;
 import models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import repositories.PostRepository;
 import repositories.UserRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,14 +21,16 @@ public class PostController {
 
     private UserRepository userDao;
 
+    private EmailService emailService;
+
     public PostController() {
     }
 
-    ;
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
 
@@ -58,27 +63,31 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String showCreateForm() {
+    public String showCreateForm(Model model) {
+        model.addAttribute("post", new Post());
         return "/posts/create";
     }
 
-    @PostMapping("/posts/create")
-    public String submitPost(@RequestParam(name = "title") String title, @RequestParam(name = "description") String description) {
-        Post post = new Post();
-        post.setTitle(title);
-        post.setBody(description);
-        User user = userDao.getById(1L);
-        post.setUser(user);
-        postDao.save(post);
-        return "redirect:/posts";
-    }
+//    @PostMapping("/posts/create")
+//    public String submitPost(@RequestParam(name = "title") String title, @RequestParam(name = "description") String description) {
+//        Post post = new Post();
+//        post.setTitle(title);
+//        post.setBody(description);
+//        User user = userDao.getById(1L);
+//        post.setUser(user);
+//        postDao.save(post);
+//        return "redirect:/posts";
+//    }
 
 
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post post) {
-        User user = userDao.getById(1L);
-        post.setUser(user);
+//        User user = userDao.getById(1L);
+        User currentUser = null;
+        post.setUser(currentUser);
         postDao.save(post);
+        emailService.prepareAndSend(post, "New Post Created!", "A new post has been created! Here is the title of your new post! Title: " + post.getTitle());
+
         return "redirect:/posts";
     }
 

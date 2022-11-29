@@ -51,4 +51,8 @@ public class Ad {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public User getOwner() {
+        return null;
+    }
 }
