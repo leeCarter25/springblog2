@@ -1,6 +1,6 @@
 package com.example.springblog2;
 
-import services.UserDetailsLoader;
+import com.example.springblog2.services.UserDetailsLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +15,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+    private UserDetailsLoader usersLoader;
+
     public SecurityConfiguration(UserDetailsLoader usersLoader) {
+        this.usersLoader = usersLoader;
     }
 
     @Bean
@@ -33,17 +36,17 @@ public class SecurityConfiguration {
         http
                 /* Login configuration */
                 .formLogin()
-                .loginPage("/login.html")
+                .loginPage("/login")
                 .defaultSuccessUrl("/posts") // user's home page, it can be any URL
                 .permitAll() // Anyone can go to the login.html page
                 /* Logout configuration */
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login.html?logout") // append a query string value
+                .logoutSuccessUrl("/login?logout") // append a query string value
                 /* Pages that can be viewed without having to log in */
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/posts", "/signup") // anyone can see the home and the ads pages
+                .antMatchers("/", "/posts", "/sign-up") // anyone can see the home and the ads pages
                 .permitAll()
                 /* Pages that require authentication */
                 .and()

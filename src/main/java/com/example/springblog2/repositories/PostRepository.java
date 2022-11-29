@@ -1,9 +1,7 @@
-package repositories;
+package com.example.springblog2.repositories;
 
-import models.Post;
+import com.example.springblog2.models.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 //    List<Post> findAll();

@@ -1,12 +1,12 @@
-package com.example.springblog2;
+package com.example.springblog2.controllers;
 
-import models.Ad;
+import com.example.springblog2.models.Ad;
+import com.example.springblog2.repositories.AdRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
-import repositories.AdRepository;
 
 import java.util.ArrayList;
 import java.util.List;

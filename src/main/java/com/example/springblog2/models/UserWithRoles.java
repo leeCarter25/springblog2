@@ -1,6 +1,5 @@
-package models;
+package com.example.springblog2.models;
 
-import models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,16 +17,6 @@ public class UserWithRoles extends User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String roles = "";
         return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
     }
 
     @Override

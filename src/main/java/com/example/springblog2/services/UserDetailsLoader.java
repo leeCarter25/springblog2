@@ -1,13 +1,14 @@
-package services;
+package com.example.springblog2.services;
 
-//import com.example.springblog2.models.UserWithRoles;
-import models.User;
+import com.example.springblog2.models.UserWithRoles;
+import com.example.springblog2.models.User;
+import com.example.springblog2.models.UserWithRoles;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import repositories.UserRepository;
+import com.example.springblog2.repositories.UserRepository;
 
 import java.util.Collection;
 
@@ -29,45 +30,5 @@ public class UserDetailsLoader implements UserDetailsService {
         }
         // instantiate a new User through the super constructor.
         return new UserWithRoles(user);
-    }
-
-    private class UserWithRoles implements UserDetails {
-        public UserWithRoles(User user) {
-        }
-
-        @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            return null;
-        }
-
-        @Override
-        public String getPassword() {
-            return null;
-        }
-
-        @Override
-        public String getUsername() {
-            return null;
-        }
-
-        @Override
-        public boolean isAccountNonExpired() {
-            return false;
-        }
-
-        @Override
-        public boolean isAccountNonLocked() {
-            return false;
-        }
-
-        @Override
-        public boolean isCredentialsNonExpired() {
-            return false;
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return false;
-        }
     }
 }

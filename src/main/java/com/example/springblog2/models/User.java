@@ -1,4 +1,4 @@
-package models;
+package com.example.springblog2.models;
 
 import javax.persistence.*;
 import java.util.List;
@@ -34,7 +34,11 @@ public class User {
         this.post = post;
     }
 
-    public User(User user) {
+    public User(User copy) {
+        id = copy.id;
+        username = copy.username;
+        email = copy.email;
+        password = copy.password;
     }
 
     public long getId() {
@@ -45,12 +49,20 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUserName(String userName) {
-        this.username = userName;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<Post> getPost() {
+        return post;
+    }
+
+    public void setPost(List<Post> post) {
+        this.post = post;
     }
 
     public String getEmail() {
@@ -61,18 +73,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPassWord() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.password = passWord;
-    }
-
-    public CharSequence getPassword() {
-        return null;
-    }
-
-    public void setPassword(String hash) {
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

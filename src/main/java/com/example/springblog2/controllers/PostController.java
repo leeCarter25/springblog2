@@ -1,16 +1,16 @@
-package com.example.springblog2;
+package com.example.springblog2.controllers;
 
-import services.EmailService;
-import models.Post;
-import models.User;
+import com.example.springblog2.services.EmailService;
+import com.example.springblog2.models.Post;
+import com.example.springblog2.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import repositories.PostRepository;
-import repositories.UserRepository;
+import com.example.springblog2.repositories.PostRepository;
+import com.example.springblog2.repositories.UserRepository;
 
 import java.util.List;
 
@@ -22,9 +22,6 @@ public class PostController {
     private UserRepository userDao;
 
     private EmailService emailService;
-
-    public PostController() {
-    }
 
 
     public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
@@ -83,8 +80,8 @@ public class PostController {
     @PostMapping("/posts/create")
     public String create(@ModelAttribute Post post) {
 //        User user = userDao.getById(1L);
-        User currentUser = null;
-        post.setUser(currentUser);
+//        User currentUser = null;
+//        post.setUser(currentUser);
         postDao.save(post);
         emailService.prepareAndSend(post, "New Post Created!", "A new post has been created! Here is the title of your new post! Title: " + post.getTitle());
 

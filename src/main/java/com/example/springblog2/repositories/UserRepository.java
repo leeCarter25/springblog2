@@ -1,9 +1,7 @@
-package repositories;
+package com.example.springblog2.repositories;
 
-import models.User;
+import com.example.springblog2.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
